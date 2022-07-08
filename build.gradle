@@ -1,6 +1,4 @@
 buildscript {
-    
-
     repositories {
         mavenLocal()
         mavenCentral()
@@ -11,8 +9,6 @@ buildscript {
     dependencies {
         classpath 'org.wisepersist:gwt-gradle-plugin:1.1.16'
         classpath 'org.gretty:gretty:3.0.7'
-        
-
     }
 }
 
@@ -21,7 +17,7 @@ allprojects {
 
     version = '1.0'
     ext {
-        appName = "Teste"
+        appName = "TicTacToeGraphical"
         gdxVersion = '1.11.0'
         roboVMVersion = '2.3.16'
         box2DLightsVersion = '1.5'
@@ -41,6 +37,16 @@ allprojects {
     }
 }
 
+project(":core") {
+    apply plugin: "java-library"
+
+
+    dependencies {
+        api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        
+    }
+}
+
 project(":desktop") {
     apply plugin: "java-library"
 
@@ -53,28 +59,18 @@ project(":desktop") {
     }
 }
 
-project(":html") {
-    apply plugin: "java-library"
-    apply plugin: "gwt"
-    apply plugin: "war"
-    apply plugin: "org.gretty"
+// project(":html") {
+//     apply plugin: "java-library"
+//     apply plugin: "gwt"
+//     apply plugin: "war"
+//     apply plugin: "org.gretty"
 
 
-    dependencies {
-        implementation project(":core")
-        api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
-        api "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
-        api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
-        
-    }
-}
+//     dependencies {
+//         implementation project(":core")
+//         api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+//         api "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+//         api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
 
-project(":core") {
-    apply plugin: "java-library"
-
-
-    dependencies {
-        api "com.badlogicgames.gdx:gdx:$gdxVersion"
-        
-    }
-}
+//     }
+// }

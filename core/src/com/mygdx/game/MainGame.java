@@ -1,31 +1,61 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.Screens.MainMenuScreen;
+import com.mygdx.Screens.TicTacToeScreen;
 
-public class MainGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+public class MainGame extends Game {
+	static ShapeRenderer shapeDrawer;
 
-	@Override
-	public void create() {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
+	static OrthographicCamera camera;
+	public static final int SCREEN_WIDTH = 800;
+	public static final int SCREEN_HEIGHT = 800;
 
-	@Override
+	public static GameState gameState = GameState.SELECTING;
+	public MainMenuScreen myMainMenuScreen;
+	TicTacToeScreen myTicTacToeScreen;
+
 	public void render() {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		ScreenUtils.clear(Color.BLUE);
+		switch (gameState) {
+		case SELECTING:
+			myMainMenuScreen.setInputProcessor();
+			setScreen(myMainMenuScreen);
+			break;
+		case TWO_PLAYERS:
+			myTicTacToeScreen.setInputProcessor();
+			setScreen(myTicTacToeScreen);
+			break;
+		default:
+			myTicTacToeScreen.setInputProcessor();
+			setScreen(myTicTacToeScreen);
+			break;
+		}
+
+		getScreen().render(Gdx.graphics.getDeltaTime());
+
 	}
 
-	@Override
 	public void dispose() {
-		batch.dispose();
-		img.dispose();
+		shapeDrawer.dispose();
+	}
+
+	public void create() {
+		shapeDrawer = new ShapeRenderer();
+		myTicTacToeScreen = new TicTacToeScreen();
+		myMainMenuScreen = new MainMenuScreen(myTicTacToeScreen);
+		gameState = GameState.SELECTING;
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	}
+
+	public enum GameState {
+		SELECTING, TWO_PLAYERS, ENGINE_PLAYER_1, ENGINE_PLAYER_2
 	}
 }
