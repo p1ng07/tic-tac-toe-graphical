@@ -1,0 +1,5 @@
+#+title: Todo
+
+1. Change the minimax algorithm so it only returns the minimax value of a move,
+  then use that to evaluate all of the possible moves in the current board and determine the better one
+2. Implement alpha beta pruning
