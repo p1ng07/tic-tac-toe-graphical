@@ -16,8 +16,6 @@ public class TicTacToeEngine {
         return nextMove;
     }
 
-    int robert = 5;
-
     /*
      * Return the next move in (column, row) format
      *
