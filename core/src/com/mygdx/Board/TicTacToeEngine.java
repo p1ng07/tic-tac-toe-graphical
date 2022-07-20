@@ -23,7 +23,7 @@ public class TicTacToeEngine {
      *
      * @param board, the current tic tac toe board
      */
-    public int minimax(TicTacToeBoard board, boolean isMaximizingPlayer) {
+    public int minimax(TicTacToeBoard board, boolean max) {
         if (board.isGameFinished()) {
             if (robert >= 0) {
                 // board.printBoardToConsole();
@@ -37,7 +37,7 @@ public class TicTacToeEngine {
                 return 0;
         }
 
-        if (isMaximizingPlayer) {
+        if (max) {
             int maxValue = -9999;
             Vector<Move> possibleMoves = getAllPossibleMoves(board);
             int[] possibleMovesValues = new int[possibleMoves.size()];
