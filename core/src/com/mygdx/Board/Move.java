@@ -8,4 +8,12 @@ public class Move {
         this.col = col;
         this.line = line;
     }
+
+    public Move newInstance() {
+        return new Move(this.col, this.line);
+    }
+
+    public void print() {
+        System.out.println("col =" + this.col + ",line =" + this.line);
+    }
 }

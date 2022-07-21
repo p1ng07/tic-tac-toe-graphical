@@ -9,11 +9,12 @@ import com.mygdx.Board.TicTacToeBoard.SquareType;
  * TicTacToeEngine
  */
 public class TicTacToeEngine {
-    private Move nextMove = new Move(1, 1);
+    private Move nextMove = new Move(0, 0);
 
     public Move getNextMove(TicTacToeBoard board, boolean isPlayer1Turn) {
         minimax(TicTacToeBoard.newInstance(board), isPlayer1Turn);
         return nextMove;
+
     }
 
     /*
@@ -30,40 +31,36 @@ public class TicTacToeEngine {
             else if (board.getGameState() == GameState.draw)
                 return 0;
 
+        Vector<Move> possibleMoves = getAllPossibleMoves(board);
+        Vector<Integer> possibleMovesValues = new Vector<Integer>();
         if (max) {
-            int maxValue = -9999;
-            Vector<Move> possibleMoves = getAllPossibleMoves(board);
-            int[] possibleMovesValues = new int[possibleMoves.size()];
             // Traverse all possible moves of the current move and save all of the values
             for (int i = 0; i < possibleMoves.size(); i++) {
                 TicTacToeBoard newBoard = TicTacToeBoard.newInstance(board);
                 newBoard.makeMove(possibleMoves.get(i));
-                int minimaxValue = minimax(newBoard, false);
-                possibleMovesValues[i] = minimaxValue;
+                possibleMovesValues.add(minimax(newBoard, false));
             }
+            int maxValue = -9999;
             // Determine the move to be played by the maximizing player
             for (int i = 0; i < possibleMoves.size(); i++) {
-                if (possibleMovesValues[i] > maxValue) {
-                    maxValue = possibleMovesValues[i];
+                if (possibleMovesValues.get(i) > maxValue) {
+                    maxValue = possibleMovesValues.get(i);
                     nextMove = possibleMoves.get(i);
                 }
             }
             return maxValue;
         } else {
-            int minValue = 9999;
-            Vector<Move> possibleMoves = getAllPossibleMoves(board);
-            int[] possibleMovesValues = new int[possibleMoves.size()];
             // Traverse all possible moves of the current move and save all of the values
             for (int i = 0; i < possibleMoves.size(); i++) {
                 TicTacToeBoard newBoard = TicTacToeBoard.newInstance(board);
                 newBoard.makeMove(possibleMoves.get(i));
-                int minimaxValue = minimax(newBoard, true);
-                possibleMovesValues[i] = minimaxValue;
+                possibleMovesValues.add(minimax(newBoard, true));
             }
-            // Determine the move to be played by the maximizing player
+            int minValue = 9999;
+            // Determine the move to be played by the minimizing player
             for (int i = 0; i < possibleMoves.size(); i++) {
-                if (possibleMovesValues[i] < minValue) {
-                    minValue = possibleMovesValues[i];
+                if (possibleMovesValues.get(i) < minValue) {
+                    minValue = possibleMovesValues.get(i);
                     nextMove = possibleMoves.get(i);
                 }
             }

@@ -99,23 +99,47 @@ public class TicTacToeBoard {
         for (int line = 0; line < 3; line++) {
             for (int col = 0; col < 3; col++)
                 numberChar += player == this.board[line][col] ? 1 : 0;
-            if (numberChar == 3)
+            if (numberChar == 3) {
+                if (player == SquareType.player1) {
+                    this.gameState = GameState.WonPlayer1;
+                } else {
+                    this.gameState = GameState.WonPlayer2;
+                }
                 return true;
+            }
             numberChar = 0;
         }
 
         for (int col = 0; col < 3; col++) {
             for (int line = 0; line < 3; line++)
                 numberChar += player == this.board[line][col] ? 1 : 0;
-            if (numberChar == 3)
+            if (numberChar == 3) {
+                if (player == SquareType.player1) {
+                    this.gameState = GameState.WonPlayer1;
+                } else {
+                    this.gameState = GameState.WonPlayer2;
+                }
                 return true;
+            }
             numberChar = 0;
         }
 
-        if (board[0][0] == player && board[1][1] == player && player == board[2][2])
+        if (board[0][0] == player && board[1][1] == player && player == board[2][2]) {
+            if (player == SquareType.player1) {
+                this.gameState = GameState.WonPlayer1;
+            } else {
+                this.gameState = GameState.WonPlayer2;
+            }
             return true;
-        if (board[0][2] == player && board[1][1] == player && player == board[2][0])
+        }
+        if (board[0][2] == player && board[1][1] == player && player == board[2][0]) {
+            if (player == SquareType.player1) {
+                this.gameState = GameState.WonPlayer1;
+            } else {
+                this.gameState = GameState.WonPlayer2;
+            }
             return true;
+        }
 
         int emptySquares = 0;
         for (int line = 0; line < 3; line++)
