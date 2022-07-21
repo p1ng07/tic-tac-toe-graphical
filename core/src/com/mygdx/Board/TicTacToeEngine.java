@@ -22,18 +22,13 @@ public class TicTacToeEngine {
      * @param board, the current tic tac toe board
      */
     public int minimax(TicTacToeBoard board, boolean max) {
-        if (board.isGameFinished()) {
-            if (robert >= 0) {
-                // board.printBoardToConsole();
-                robert--;
-            }
+        if (board.isGameFinished())
             if (board.getGameState() == GameState.WonPlayer1)
                 return 1;
             else if (board.getGameState() == GameState.WonPlayer2)
                 return -1;
             else if (board.getGameState() == GameState.draw)
                 return 0;
-        }
 
         if (max) {
             int maxValue = -9999;
